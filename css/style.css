@@ -11,11 +11,13 @@ Dark green: #28b485
   --medium-green: #55c57a;
   --dark-green: #28b485;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -24,6 +26,7 @@ body {
   color: #777;
   padding: 30px;
 }
+
 .header {
   height: 95vh;
   background-image: linear-gradient(
@@ -39,11 +42,13 @@ body {
   /* clip-path: polygon(x y,x y,x y,x y,...) // where x and y are the x and y co-ordinates in any metric like px,vh,vw,em,% etc... */
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
 }
+
 .logo-box {
   position: absolute;
   top: 40px;
   left: 40px;
 }
+
 .text-box {
   position: absolute;
   top: 40%;
@@ -51,6 +56,7 @@ body {
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
 .logo {
   height: 35px;
 }
@@ -63,6 +69,7 @@ body {
   backface-visibility: hidden;
   margin-bottom: 60px;
 }
+
 .heading-primary-main {
   display: block;
   font-size: 60px;
@@ -79,6 +86,7 @@ body {
   animation-timing-function: ease-out;
    */
 }
+
 .heading-primary-sub {
   display: block;
   font-size: 20px;
@@ -123,6 +131,18 @@ body {
   }
 }
 
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .btn:link,
 .btn:visited {
   text-transform: uppercase;
@@ -131,6 +151,8 @@ body {
   display: inline-block;
   border-radius: 100px;
   transition: all 0.2s;
+  /* position: relative to provide context to button::after element which has position absolute */
+  position: relative;
 }
 
 .btn:hover {
@@ -143,6 +165,39 @@ body {
 }
 
 .btn-white {
-  background-color: #ffffff;
+  background-color: #fff;
   color: #777;
+}
+.btn::after {
+  /* content property is necessary */
+  content: "";
+  /* display property is also necessary */
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.btn-white::after {
+  background-color: white;
+}
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.btn-animated {
+  animation-name: moveInBottom;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  /* animation delays the animation  */
+  animation-delay: 0.75s;
+  /* animation-fill-mode:backwards automatically applies the styles of 0% to the initial state of the element (before the animation starts)   */
+  animation-fill-mode: backwards;
 }
